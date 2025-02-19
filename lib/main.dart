@@ -32,7 +32,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Intl.defaultLocale = Localizations.localeOf(context).toString();
-
+    const envValue = String.fromEnvironment('testValue');
     return Scaffold(
       appBar: AppBar(
         title: Text(L10n.of(context).helloWorld),
@@ -47,6 +47,7 @@ class HomeView extends StatelessWidget {
             Image.asset('assets/images/test.png'),
             Assets.images.testPng.image(),
             Assets.images.testSvg.svg(width: 100, height: 100),
+            Text('環境変数テスト: $envValue'),
           ],
         ),
       ),
