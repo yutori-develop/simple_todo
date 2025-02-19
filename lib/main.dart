@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:simple_todo/gen/assets.gen.dart';
@@ -44,7 +45,8 @@ class HomeView extends StatelessWidget {
               DateFormat.yMEd().format(DateTime.now()),
             ),
             Image.asset('assets/images/test.png'),
-            Image.asset(Assets.images.testPng.path),
+            Assets.images.testPng.image(),
+            Assets.images.testSvg.svg(width: 100, height: 100),
           ],
         ),
       ),
