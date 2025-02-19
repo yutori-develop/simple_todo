@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:simple_todo/gen/assets.gen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,8 +37,15 @@ class HomeView extends StatelessWidget {
         title: Text(L10n.of(context).helloWorld),
       ),
       body: Center(
-        child: Text(
-          DateFormat.yMEd().format(DateTime.now()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              DateFormat.yMEd().format(DateTime.now()),
+            ),
+            Image.asset('assets/images/test.png'),
+            Image.asset(Assets.images.testPng.path),
+          ],
         ),
       ),
     );
