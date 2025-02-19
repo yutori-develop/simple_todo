@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,12 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    Intl.defaultLocale = Localizations.localeOf(context).toString();
+
+    return Scaffold(
+      body: Center(
+        child: Text(''),
+      ),
+    );
   }
 }
