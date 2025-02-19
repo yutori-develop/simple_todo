@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,6 +12,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: L10n.localizationsDelegates,
+      supportedLocales: L10n.supportedLocales,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -29,8 +32,13 @@ class HomeView extends StatelessWidget {
     Intl.defaultLocale = Localizations.localeOf(context).toString();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(L10n.of(context).helloWorld),
+      ),
       body: Center(
-        child: Text(''),
+        child: Text(
+          DateFormat.yMEd().format(DateTime.now()),
+        ),
       ),
     );
   }
