@@ -17,6 +17,13 @@ class TodosViewModel extends _$TodosViewModel {
 
     state = [...state, newTodo];
   }
+
+  void toggleStatus(String id, bool newStatus) {
+    state = [
+      for (final todo in state)
+        if (todo.id == id) todo.copyWith(isCompleted: newStatus) else todo
+    ];
+  }
 }
 
 //ViewModelの動き確認から

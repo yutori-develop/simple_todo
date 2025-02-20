@@ -17,13 +17,24 @@ class HomeView extends ConsumerWidget {
         title: Text('${DateFormat.yMd().format(DateTime.now())}にやること'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: ListView.builder(
-        itemBuilder: ((context, index) {
-          return ListTile(
-            title: Text(todos[index].taskName),
-          );
-        }),
-        itemCount: todos.length,
+      body: Expanded(
+        child: ListView.builder(
+          itemBuilder: ((context, index) {
+            final todo = todos[index];
+
+            return ListTile(
+              title: Text(todo.taskName),
+              trailing: Checkbox(
+                  value: todo.isCompleted,
+                  onChanged: (newValue) {
+                    ref
+                        .read(todosViewModelProvider.notifier)
+                        .toggleStatus(todo.id, newValue ?? false);
+                  }),
+            );
+          }),
+          itemCount: todos.length,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
