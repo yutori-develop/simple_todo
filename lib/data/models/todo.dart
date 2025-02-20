@@ -10,7 +10,7 @@ part 'todo.g.dart';
 class Todo with _$Todo {
   const factory Todo({
     required String id,
-    required String title,
+    required String taskName,
     @Default(false) bool isCompleted,
   }) = _Todo;
 
