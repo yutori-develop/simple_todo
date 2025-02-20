@@ -1,0 +1,3 @@
+template-arb-file: app_ja.arb #arbのテンプレートファイルを指定
+output-class: L10n #生成先のクラス名を指定
+nullable-getter: false #null許容型を利用しない
