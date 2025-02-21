@@ -20,6 +20,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final todos = ref.watch(todosViewModelProvider);
+    final checkedTodos = todos.where((todo) => todo.isCompleted).toList();
 
     return Scaffold(
       appBar: AppBar(
