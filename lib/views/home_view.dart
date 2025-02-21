@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_todo/view_models/todos_view_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -75,9 +76,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
         return Consumer(
           builder: (context, ref, child) {
             final newTaskName = ref.watch(newTaskNameProvider);
+            final l10n = L10n.of(context);
 
             return AlertDialog(
-              title: const Text('Todoの新規登録'),
+              title: const Text('Todoを追加'),
               content: TextField(
                 controller: _controller,
                 decoration: const InputDecoration(hintText: 'Todo名を記入'),
@@ -105,7 +107,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           ref.read(newTaskNameProvider.notifier).state = '';
                           GoRouter.of(context).pop();
                         },
-                  child: const Text('登録'),
+                  child: const Text('追加'),
                 ),
               ],
             );
