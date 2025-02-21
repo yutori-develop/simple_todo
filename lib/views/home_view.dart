@@ -31,7 +31,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
           final todo = todos[index];
 
           return ListTile(
-            title: Text(todo.taskName),
+            title: Text(todo.taskName,
+                style: todo.isCompleted
+                    ? TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                      )
+                    : null),
             trailing: Checkbox(
               value: todo.isCompleted,
               onChanged: (newValue) {
