@@ -50,7 +50,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
-    return showDialog(
+    return showDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
