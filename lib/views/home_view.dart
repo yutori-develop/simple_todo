@@ -62,7 +62,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ),
           FloatingActionButton(
             onPressed: () {
-              _dialogBuilder(context, ref);
+              _showAddTodoDialog(context, ref);
             },
             child: Icon(Icons.add),
           ),
@@ -71,7 +71,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context, WidgetRef ref) {
+  Future<void> _showAddTodoDialog(BuildContext context, WidgetRef ref) {
     return showDialog<void>(
       context: context,
       builder: (context) {
