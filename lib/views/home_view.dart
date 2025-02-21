@@ -14,6 +14,9 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  final _controller = TextEditingController();
+  final newTaskNameProvider = StateProvider<String>((ref) => '');
+
   @override
   Widget build(BuildContext context) {
     final todos = ref.watch(todosViewModelProvider);
@@ -30,48 +33,76 @@ class _HomeViewState extends ConsumerState<HomeView> {
           return ListTile(
             title: Text(todo.taskName),
             trailing: Checkbox(
-                value: todo.isCompleted,
-                onChanged: (newValue) {
-                  ref
-                      .read(todosViewModelProvider.notifier)
-                      .toggleStatus(todo.id, newValue ?? false);
-                }),
+              value: todo.isCompleted,
+              onChanged: (newValue) {
+                ref
+                    .read(todosViewModelProvider.notifier)
+                    .toggleStatus(todo.id, newValue ?? false);
+              },
+            ),
           );
         }),
         itemCount: todos.length,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _dialogBuilder(context);
+          _dialogBuilder(context, ref);
         },
         child: Icon(Icons.add),
       ),
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _dialogBuilder(BuildContext context, WidgetRef ref) {
     return showDialog<void>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text('Todoの新規登録'),
-          content: Text('ここにTextFieldを入れる'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              child: Text('キャンセル'),
-            ),
-            TextButton(
-              onPressed: () {
-                GoRouter.of(context).pop();
-              },
-              child: Text('登録'),
-            ),
-          ],
+        return Consumer(
+          builder: (context, ref, child) {
+            final newTaskName = ref.watch(newTaskNameProvider);
+
+            return AlertDialog(
+              title: Text('Todoの新規登録'),
+              content: TextField(
+                controller: _controller,
+                decoration: InputDecoration(hintText: 'Todo名を記入'),
+                onChanged: (value) {
+                  ref.read(newTaskNameProvider.notifier).state = value;
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    _controller.clear();
+                    ref.read(newTaskNameProvider.notifier).state = '';
+                    GoRouter.of(context).pop();
+                  },
+                  child: Text('キャンセル'),
+                ),
+                TextButton(
+                  onPressed: newTaskName.isEmpty
+                      ? null
+                      : () {
+                          ref
+                              .read(todosViewModelProvider.notifier)
+                              .addNewTodo(newTaskName);
+                          _controller.clear();
+                          ref.read(newTaskNameProvider.notifier).state = '';
+                          GoRouter.of(context).pop();
+                        },
+                  child: Text('登録'),
+                ),
+              ],
+            );
+          },
         );
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }
