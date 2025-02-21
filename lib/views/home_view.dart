@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_todo/view_models/todos_view_model.dart';
 
@@ -16,6 +17,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final todos = ref.watch(todosViewModelProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('${DateFormat.yMd().format(DateTime.now())}にやること'),
@@ -40,10 +42,36 @@ class _HomeViewState extends ConsumerState<HomeView> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ref.read(todosViewModelProvider.notifier).addNewTodo('追加されたタスク');
+          _dialogBuilder(context);
         },
         child: Icon(Icons.add),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Todoの新規登録'),
+          content: Text('ここにTextFieldを入れる'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              child: Text('キャンセル'),
+            ),
+            TextButton(
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              child: Text('登録'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
