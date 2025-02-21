@@ -12,12 +12,19 @@ class TodosViewModel extends _$TodosViewModel {
     return [initialTodo];
   }
 
+  //新たなTodoを登録する
   void addNewTodo(String taskName) {
     Todo newTodo = Todo(id: Uuid().v4(), taskName: taskName);
 
     state = [...state, newTodo];
   }
 
+  //完了済みのTodoを削除する
+  void removeTodo(List<Todo> todos) {
+    state = state.where((todo) => !todos.contains(todo)).toList();
+  }
+
+  //Todoのチェックボックスを入れ替える
   void toggleStatus(String id, bool newStatus) {
     state = [
       for (final todo in state)
@@ -25,5 +32,3 @@ class TodosViewModel extends _$TodosViewModel {
     ];
   }
 }
-
-//ViewModelの動き確認から
