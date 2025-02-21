@@ -79,10 +79,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
             final l10n = L10n.of(context);
 
             return AlertDialog(
-              title: const Text('Todoを追加'),
+              title: Text(l10n.addTodoDialogTitleText),
               content: TextField(
                 controller: _controller,
-                decoration: const InputDecoration(hintText: 'Todo名を記入'),
+                decoration:
+                    InputDecoration(hintText: l10n.addTodoDialogHintText),
                 onChanged: (value) {
                   ref.read(newTaskNameProvider.notifier).state = value;
                 },
@@ -94,7 +95,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ref.read(newTaskNameProvider.notifier).state = '';
                     GoRouter.of(context).pop();
                   },
-                  child: const Text('キャンセル'),
+                  child: Text(l10n.buttonTextForCancel),
                 ),
                 TextButton(
                   onPressed: newTaskName.isEmpty
@@ -107,7 +108,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           ref.read(newTaskNameProvider.notifier).state = '';
                           GoRouter.of(context).pop();
                         },
-                  child: const Text('追加'),
+                  child: Text(l10n.buttonTextForRegister),
                 ),
               ],
             );
@@ -128,15 +129,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 .where((todo) => todo.isCompleted)
                 .toList();
 
+            final l10n = L10n.of(context);
+
             return AlertDialog(
-              title: const Text('Todoの削除'),
-              content: const Text('完了済みのTodoを全て削除します'),
+              title: Text(l10n.removeTodoDialogTitleText),
+              content: Text(l10n.removeTodoDialogContentText),
               actions: [
                 TextButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
                   },
-                  child: const Text('キャンセル'),
+                  child: Text(l10n.buttonTextForCancel),
                 ),
                 TextButton(
                   onPressed: () {
@@ -145,7 +148,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         .removeTodo(chekedTodos);
                     GoRouter.of(context).pop();
                   },
-                  child: const Text('OK'),
+                  child: Text(l10n.buttonTextForOK),
                 ),
               ],
             );
