@@ -50,11 +50,23 @@ class _HomeViewState extends ConsumerState<HomeView> {
         }),
         itemCount: todos.length,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _dialogBuilder(context, ref);
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+            onPressed: () {},
+            child: Icon(Icons.delete),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          FloatingActionButton(
+            onPressed: () {
+              _dialogBuilder(context, ref);
+            },
+            child: Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
