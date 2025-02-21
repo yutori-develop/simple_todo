@@ -20,7 +20,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final todos = ref.watch(todosViewModelProvider);
-    final checkedTodos = todos.where((todo) => todo.isCompleted).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -54,16 +53,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
         mainAxisSize: MainAxisSize.min,
         children: [
           FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => _showDialogForRemoveTodo(context),
             child: Icon(Icons.delete),
           ),
           SizedBox(
             height: 16,
           ),
           FloatingActionButton(
-            onPressed: () {
-              _showAddTodoDialog(context);
-            },
+            onPressed: () => _showDialogForAddTodo(context),
             child: Icon(Icons.add),
           ),
         ],
@@ -71,7 +68,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     );
   }
 
-  Future<void> _showAddTodoDialog(BuildContext context) {
+  Future<void> _showDialogForAddTodo(BuildContext context) {
     return showDialog<void>(
       context: context,
       builder: (context) {
@@ -109,6 +106,44 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           GoRouter.of(context).pop();
                         },
                   child: Text('登録'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Future<void> _showDialogForRemoveTodo(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return Consumer(
+          builder: (context, ref, child) {
+            final chekedTodos = ref
+                .watch(todosViewModelProvider)
+                .where((todo) => todo.isCompleted)
+                .toList();
+
+            return AlertDialog(
+              title: Text('Todoの削除'),
+              content: Text('完了済みのTodoを全て削除します'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  },
+                  child: Text('キャンセル'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    ref
+                        .read(todosViewModelProvider.notifier)
+                        .removeTodo(chekedTodos);
+                    GoRouter.of(context).pop();
+                  },
+                  child: Text('OK'),
                 ),
               ],
             );
