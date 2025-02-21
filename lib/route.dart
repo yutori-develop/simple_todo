@@ -6,7 +6,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(routes: [
     GoRoute(
       path: HomeView.path,
-      builder: (context, state) => HomeView(),
+      builder: (context, state) => const HomeView(),
     )
   ]);
 });

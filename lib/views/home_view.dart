@@ -33,7 +33,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           return ListTile(
             title: Text(todo.taskName,
                 style: todo.isCompleted
-                    ? TextStyle(
+                    ? const TextStyle(
                         decoration: TextDecoration.lineThrough,
                       )
                     : null),
@@ -54,14 +54,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
         children: [
           FloatingActionButton(
             onPressed: () => _showDialogForRemoveTodo(context),
-            child: Icon(Icons.delete),
+            child: const Icon(Icons.delete),
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           FloatingActionButton(
             onPressed: () => _showDialogForAddTodo(context),
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
         ],
       ),
@@ -77,10 +77,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
             final newTaskName = ref.watch(newTaskNameProvider);
 
             return AlertDialog(
-              title: Text('Todoの新規登録'),
+              title: const Text('Todoの新規登録'),
               content: TextField(
                 controller: _controller,
-                decoration: InputDecoration(hintText: 'Todo名を記入'),
+                decoration: const InputDecoration(hintText: 'Todo名を記入'),
                 onChanged: (value) {
                   ref.read(newTaskNameProvider.notifier).state = value;
                 },
@@ -92,7 +92,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ref.read(newTaskNameProvider.notifier).state = '';
                     GoRouter.of(context).pop();
                   },
-                  child: Text('キャンセル'),
+                  child: const Text('キャンセル'),
                 ),
                 TextButton(
                   onPressed: newTaskName.isEmpty
@@ -105,7 +105,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           ref.read(newTaskNameProvider.notifier).state = '';
                           GoRouter.of(context).pop();
                         },
-                  child: Text('登録'),
+                  child: const Text('登録'),
                 ),
               ],
             );
@@ -127,14 +127,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 .toList();
 
             return AlertDialog(
-              title: Text('Todoの削除'),
-              content: Text('完了済みのTodoを全て削除します'),
+              title: const Text('Todoの削除'),
+              content: const Text('完了済みのTodoを全て削除します'),
               actions: [
                 TextButton(
                   onPressed: () {
                     GoRouter.of(context).pop();
                   },
-                  child: Text('キャンセル'),
+                  child: const Text('キャンセル'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -143,7 +143,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         .removeTodo(chekedTodos);
                     GoRouter.of(context).pop();
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             );
