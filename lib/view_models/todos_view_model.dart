@@ -8,15 +8,27 @@ part 'todos_view_model.g.dart';
 class TodosViewModel extends _$TodosViewModel {
   @override
   List<Todo> build() {
-    final initialTodo = Todo(id: Uuid().v4(), taskName: '初期タスク');
+    final initialTodo = Todo(id: const Uuid().v4(), taskName: '初期タスク');
     return [initialTodo];
   }
 
+  //新たなTodoを登録する
   void addNewTodo(String taskName) {
-    Todo newTodo = Todo(id: Uuid().v4(), taskName: taskName);
+    Todo newTodo = Todo(id: const Uuid().v4(), taskName: taskName);
 
     state = [...state, newTodo];
   }
-}
 
-//ViewModelの動き確認から
+  //完了済みのTodoを削除する
+  void removeTodo(List<Todo> todos) {
+    state = state.where((todo) => !todos.contains(todo)).toList();
+  }
+
+  //Todoのチェックボックスを入れ替える
+  void toggleStatus(String id, bool newStatus) {
+    state = [
+      for (final todo in state)
+        if (todo.id == id) todo.copyWith(isCompleted: newStatus) else todo
+    ];
+  }
+}

@@ -1,7 +1,31 @@
 {
     "@@locale": "ja",
-    "helloWorld": "こんにちは世界！",
-    "@helloWorld": { 
-        "description": "お決まりの挨拶" 
+    "addTodoDialogTitleText": "Todoを追加",
+    "@addTodoDialogTitleText": {
+        "description": "Todo追加ダイアログに表示するタイトル文"
+    },
+    "addTodoDialogHintText": "Todo名を記入",
+    "@addTodoDialogHintText": {
+        "description": "Todo追加ダイアログのテキストフィールドに表示するヒント文"
+    },
+    "removeTodoDialogTitleText": "Todoを削除",
+    "@removeTodoDialogTitleText": {
+        "description": "Todo削除ダイアログに表示するタイトル文"
+    },
+    "removeTodoDialogContentText": "完了済みのTodoを全て削除します",
+    "@removeTodoDialogContentText": {
+        "description": "Todo削除ダイアログのコンテンツ文"
+    },
+    "buttonTextForRegister": "登録",
+    "@buttonTextForRegister": {
+        "description": "登録ボタン用のテキスト"
+    },
+    "buttonTextForOK": "OK",
+    "@buttonTextForOK": {
+        "description": "削除ボタン用のテキスト"
+    },
+    "buttonTextForCancel": "キャンセル",
+    "@buttonTextForCancel": {
+        "description": "キャンセルボタン用のテキスト"
     }
 }
